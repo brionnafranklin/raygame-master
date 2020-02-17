@@ -7,9 +7,9 @@ class List
 
 protected:
 
-	int mCount;
-	Node<T>* First;
-	//Node<T>* Last;
+	int m_count;
+	Node<T>* m_first;
+	Node<T>* m_last;
 
 public:
 	List();
@@ -28,6 +28,8 @@ public:
 
 	//iterator<T> Begin();
 	//iterator<T> End();
+
+	bool isEmpty();
 
 private:
 	//void copyList(List<T> &)

@@ -7,6 +7,8 @@ public:
 	Node();
 	~Node();
 
+	T info;
+
 	Node<T> * next;
 	Node<T> * previous;
 
