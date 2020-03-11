@@ -1,46 +1,137 @@
 #pragma once
+#include <iostream>
 #include "List.h"
 
 template<typename T>
-class UnorderedList : List<T>
-{
+class UnorderedList : public List<T> {
 public:
-	UnorderedList();
-	~UnorderedList();
-
-	insertFirst(const T&) override;
-	insertLast(const T&) override;
+	bool search(const T&);
+	void insertFirst(const T&);
+	void insertLast(const T&);
+	void deleteNode(const T&);
+	void clear();
 };
 
 template<typename T>
-inline UnorderedList<T>::insertFirst(const T & Info)
+bool UnorderedList<T>::search(const T& infoToSearch)
 {
-	//Create a new Node
-	Node<T> fNode;
-
-	//Add info to the new node
-	fNode.Info = Info;
-
-	//Set the new nodes "next" to be the first node in the list
-	fNode.Next = m_first;
-
-	//Set First to point to the new node
-	m_first = fNode;
+	if (this->m_first->info == infoToSearch) return true;
+	if (this->m_last->info == infoToSearch) return true;
+	for (auto i = this->begin(); i != this->end(); i++)
+	{
+		if (*i == infoToSearch) return true;
+	}
+	return false;
 }
 
 template<typename T>
-inline UnorderedList<T>::insertLast(const T & Info)
+void UnorderedList<T>::deleteNode(const T& infoToDelete)
 {
-	//Crate a new Node
-	Node<T> lNode;
+	Node<T>* iter = &(*this->m_first);
 
-	//Add info to the new Node
-	lNode.Info = Info;
+	if (this->m_first->info == infoToDelete)
+	{
+		if (this->length() == 1)
+		{
+			this->m_first = nullptr;
+			this->m_last = nullptr;
+			delete iter;
+			this->mCount--;
+			return;
+		}
+		this->m_first = iter->next;
+		delete iter;
+		this->mCount--;
+		return;
+	}
+	if (this->m_last->info == infoToDelete)
+	{
+		iter = &(*this->m_last);
+		this->m_last = iter->previous;
+		delete iter;
+		this->mCount--;
+		return;
+	}
 
-	//Set the new nodes "next" to be null in the list
-	lNode.Next = nullptr;
-
-	//Set Last to point to the new node
-	m_last = lNode;
+	int spotInList = 1;
+	for (auto i = this->begin(); i != this->end(); i++)
+	{
+		if ((*i) == infoToDelete && spotInList != 0 && spotInList != this->length())
+		{
+			iter->next->previous = iter->previous;
+			iter->previous->next = iter->next;
+			delete iter;
+			this->mCount--;
+			break;
+		}
+		else
+		{
+			spotInList++;
+			iter = &(*iter->next);
+		}
+	}
 }
 
+template<typename T>
+void UnorderedList<T>::clear()
+{
+	//Can override [] for iterating through instead of this
+
+	for (int i = this->mCount; i > 0; i--)
+	{
+		Node<T>* iter = this->m_first;
+		Node<T>* iterNext = nullptr;
+
+		if (iter->next != nullptr)
+		{
+			iterNext = iter->next;
+		}
+
+		this->deleteNode(iter->info);
+
+		if (iterNext != nullptr)
+		{
+			iter = iterNext;
+		}
+	}
+}
+
+template<typename T>
+void UnorderedList<T>::insertFirst(const T& tempInfo)
+{
+	Node<T>* newNode = new Node<T>;
+	newNode->info = tempInfo;
+
+	if (this->isListEmpty())
+	{
+		this->m_first = newNode;
+		this->m_last = newNode;
+		this->mCount++;
+		return;
+	}
+	newNode->next = this->m_first;
+	this->m_first->previous = newNode;
+	this->m_first = newNode;
+	newNode->previous = nullptr;
+	this->mCount++;
+}
+
+template<typename T>
+void UnorderedList<T>::insertLast(const T& tempInfo)
+{
+	Node<T>* newNode = new Node<T>;
+	newNode->info = tempInfo;
+
+	if (this->m_last == nullptr)
+	{
+		this->m_first = newNode;
+		this->m_last = newNode;
+		this->mCount++;
+		return;
+	}
+	this->m_last->next = newNode;
+	newNode->previous = this->m_last;
+	this->m_last = newNode;
+	newNode->next = nullptr;
+	this->mCount++;
+}

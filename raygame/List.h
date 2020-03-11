@@ -1,102 +1,100 @@
 #pragma once
 #include "Node.h"
+#include "Iterator.h"
 
-template<typename T> 
-class List
-{
-
+template<typename T>
+class List {
 protected:
+	int mCount;
 
-	int m_count;
-	Node<T>* m_first;
 	Node<T>* m_last;
-
-	bool isEmpty
+	Node<T>* m_first;
 
 public:
+	void initializeList();
+	bool isListEmpty();
+	int length();
+
+	T front();
+	T back();
+
+	virtual bool search(const T&) = 0;
+	virtual void insertFirst(const T&) = 0;
+	virtual void insertLast(const T&) = 0;
+	virtual void deleteNode(const T&) = 0;
+
+	Iterator<T> begin();
+	Iterator<T> end();
 
 	List();
 	~List();
-	int length();
-	void front();
-	void back();
-	void insertFirst(const T&);
-	void insertLast(const T&);
-	void push(Node* head_ref, T NewDate);
-	void pushBack(Node<T>* head_ref, T NewDate)
 
+private:
+	void copyList(List<T>&);
 };
 
-template<class T>
-void List<T>::front()
+template<typename T>
+void List<T>::initializeList()
 {
-	return startPtr;
+	m_first = nullptr;
+	m_last = nullptr;
+	mCount = 0;
 }
 
-template<class T>
-void List<T>::back()
+template<typename T>
+bool List<T>::isListEmpty()
 {
-	return endptr;
+	if (m_first == nullptr) return true;
+	else return false;
 }
 
-template<class T>
-void List<T>::insertFirst(const T &)
+template<typename T>
+int List<T>::length()
 {
-	if (isEmpty())
-	{
-		startPtr = newPtr;
-		endptr = newPtr;
-	}
-	else
-	{
-		Node<T>* newPtr = new Node<>(dataIn);
+	return mCount;
+}
 
-		startPtr = newPtr;
-		endptr = newPtr;
-	}
+template<typename T>
+T List<T>::front()
+{
+	return m_first->info;
+}
+
+template<typename T>
+T List<T>::back()
+{
+	return m_last->info;
+}
+
+template<typename T>
+Iterator<T> List<T>::begin()
+{
+	return Iterator<T>(m_first);;
+}
+
+template<typename T>
+Iterator<T> List<T>::end()
+{
+	return Iterator<T>(m_last);
+}
+
+template<typename T>
+List<T>::List()
+{
+	initializeList();
+}
+
+template<typename T>
+List<T>::~List()
+{
 
 }
 
-
-template<class T>
-void List<T>::insertLast(const T &)
+template<typename T>
+void List<T>::copyList(List<T>& listToCopy)
 {
-	if (isEmpty())
-	{
-		startPtr = newPtr;
-		endptr = newPtr;
-	}
-	else
-	{
-
-		Node<T>* newPtr = new Node<>(dataIn);
-
-		startPtr = newPtr;
-		endptr = newPtr;
-	}
+	this->m_first = &(*listToCopy->m_first);
+	this->m_last = &(*listToCopy->m_last);
+	mCount = listToCopy.length();
+	delete listToCopy;
 }
-
-template<class T>
-void List<T>::push(Node<T>* head_ref, T NewDate)
-{
-	Node new_node = new Node();
-
-	new_node->Node<T> = NewDate;
-
-	new_node->next = (*head_ref);
-
-	(*head_ref) = new_node;
-}
-
-template<class T>
-void List<T>::pushBack(Node<T>* End_ref, T NewDate)
-{
-	Node new_node = new Node();
-
-	new_node->Node<T> = NewDate;
-
-	new_node->next = (*End_ref);
-
-	(*End_ref) = new_node;
-}
-

@@ -11,7 +11,14 @@ public:
 
 	Node<T> * next;
 	Node<T> * previous;
-
-private:
-
 };
+
+template<typename T>
+inline Node<T>::Node()
+{
+}
+
+template<typename T>
+inline Node<T>::~Node()
+{
+}

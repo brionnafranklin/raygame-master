@@ -10,6 +10,7 @@
 ********************************************************************************************/
 
 #include "raylib.h"
+#include "UnorderedList.h"
 
 int main()
 {
@@ -19,6 +20,17 @@ int main()
 	int screenHeight = 450;
 
 	InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
+
+	UnorderedList<int> test;
+	test.initializeList();
+
+	test.insertFirst(69);
+	test.insertLast(420);
+	test.insertLast(34);
+
+	test.deleteNode(34);
+
+	test.clear();
 
 	SetTargetFPS(60);
 	//--------------------------------------------------------------------------------------
@@ -37,7 +49,7 @@ int main()
 
 		ClearBackground(RAYWHITE);
 
-		DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
+		DrawText("Here We Go", 190, 200, 20, LIGHTGRAY);
 
 		EndDrawing();
 		//----------------------------------------------------------------------------------
