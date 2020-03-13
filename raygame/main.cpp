@@ -19,17 +19,23 @@ int main()
 	int screenWidth = 800;
 	int screenHeight = 450;
 
+	//make basic window
 	InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
 
+	//create test list
 	UnorderedList<int> test;
+	//set all values to nothing
 	test.initializeList();
 
+	//populate list
 	test.insertFirst(69);
 	test.insertLast(420);
 	test.insertLast(34);
 
+	//delete 34
 	test.deleteNode(34);
 
+	//clear list
 	test.clear();
 
 	SetTargetFPS(60);
