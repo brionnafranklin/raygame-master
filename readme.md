@@ -33,19 +33,9 @@
                 Type: Iterator<T> operator
                 Visibility: public
                 
-                -Name: 
-                Description: 
-                Type: 
-                Visibility: public
-                
                 -Name: *
                 Description: returns the data at that point in the list
                 Type: T operator
-                Visibility: public
-                
-                -Name: 
-                Description: 
-                Type: 
                 Visibility: public
                 
                 -Name: Iterator
