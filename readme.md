@@ -230,59 +230,17 @@
                 Type: void
                 Visibility: public
                 
-                -Name: 
-                Description: 
-                Type: 
-                Visibility: 
-                
-                -Name: 
-                Description: 
-                Type: 
-                Visibility: 
-                
-                -Name: 
-                Description: 
-                Type: 
-                Visibility: 
-                
-     **File**: 
+     **File**: main.cpp
 
-        Description: 
+        Description: runs on start up; where key functions are called
 
-            Attributes:
-            
-                -Name: 
-                Description: 
-                Type: 
-                Visibility: 
-                
             Operations:
                 
-                -Name: 
-                Description: 
-                Type: 
-                Visibility: 
+                -Name: main
+                Description: runs on start up
+                Type: int
+                Visibility: private
                 
-                -Name: 
-                Description: 
-                Type: 
-                Visibility: 
-                
-                -Name: 
-                Description: 
-                Type: 
-                Visibility: 
-                
-                -Name: 
-                Description: 
-                Type: 
-                Visibility: 
-                
-                -Name: 
-                Description: 
-                Type: 
-                Visibility: 
-
 ## License
 
 MIT License - Copyright (c) 2018 Academy of Interactive Entertainment
