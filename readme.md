@@ -8,7 +8,7 @@
 
 1. Object Information
 
-   -
+   - a collection of data where each piece of data points to the next
 
     **File**: 
 
